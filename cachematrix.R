@@ -11,11 +11,8 @@
 ## 2. Get the assigned matrix.
 ##    > testMatrix$get()
 ## 3. Overwrite the assigned matrix with a new one.
-##    > ## testMatrix$set(matrix(1:4,2,2))
+##    > testMatrix$set(matrix(1:4,2,2))
 makeCacheMatrix <- function(cachedMatrix = matrix()) {
-  
-  # Wipe out any stored Inverse Matrix values.
-  inverseMatrix <- NULL
   
   # Return the stored matrix.
   get <- function () cachedMatrix
@@ -23,6 +20,7 @@ makeCacheMatrix <- function(cachedMatrix = matrix()) {
   # Overwrite the stored matrix with a new one.
   set <- function (y) {
        cachedMatrix <<- y
+       
   }
   
   list (get = get, set = set)  
@@ -36,7 +34,7 @@ cacheSolve <- function(cachedMatrix, ...) {
   
   # Is the matrix square? If so, we can probably get the inverse matrix.
   if (nrow(cachedMatrix) == ncol(cachedMatrix)){
-     inversedMatrix <- solve(cachedMatrix)
+     inversedMatrix <<- solve(cachedMatrix)
   }
   else {
      message('Matrix has an unequal number of rows and columns and not may be inverted.')    
