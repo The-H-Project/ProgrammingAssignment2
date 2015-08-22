@@ -1,22 +1,35 @@
-## Put comments here that give an overall description of what your
-## functions do
 ## R Programming Programming Assignment 2 (Week 3)
+## Version 20150821
 
-## Write a short comment describing this function
 # makeCacheMatrix: a Function of four parts:
-# $setMatrix: sets the matrix values
-# $getMatrix: gets the set matrix values, if existing
+# $get: gets the set matrix values, if existing
+# $set: overwrite cached matrix values
 
-makeCacheMatrix <- function(x = matrix()) {
-  setMatrix <- function (y) {
-       x <<- y
+## To use makeCacheMatrix
+## 1. Assign create a matrix.
+##    testMatrix <- makeCacheMatrix(matrix(1:4,2,2))
+
+makeCacheMatrix <- function(cachedMatrix = matrix()) {
+  
+  # Wipe out any stored Inverse Matrix values.
+  inverseMatrix <- NULL
+  
+  get <- function () cachedMatrix
+  
+  set <- function (y) {
+       cachedMatrix <<- y
   }
-  list (setMatrix = setMatrix)  
+  
+  
+  
+  
+  
+  list (get = get, set = set)  
   
 }
 
 
-## Write a short comment describing this function
+## cacheSolve
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
