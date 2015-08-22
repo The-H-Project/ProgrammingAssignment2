@@ -34,6 +34,11 @@ makeCacheMatrix <- function(cachedMatrix = matrix()) {
 
 cacheSolve <- function(cachedMatrix, ...) {
   
-  inversedMatrix <- solve(cachedMatrix)
-  
+  # Is the matrix square? If so, we can probably get the inverse matrix.
+  if (nrow(cachedMatrix) == ncol(cachedMatrix)){
+     inversedMatrix <- solve(cachedMatrix)
+  }
+  else {
+     message('Matrix has an unequal number of rows and columns and not may be inverted.')    
+  }
 }
