@@ -17,10 +17,10 @@ makeCacheMatrix <- function(cachedMatrix = matrix()) {
   # Return the stored matrix.
   get <- function () cachedMatrix
   
-  # Overwrite the stored matrix with a new one.
+  # Overwrite the stored matrix with a new one, and wipe out the cached inversed Matrix.
   set <- function (y) {
        cachedMatrix <<- y
-       
+       inversedMatrix <<- NULL
   }
   
   list (get = get, set = set)  
@@ -32,11 +32,17 @@ makeCacheMatrix <- function(cachedMatrix = matrix()) {
 
 cacheSolve <- function(cachedMatrix, ...) {
   
-  # Is the matrix square? If so, we can probably get the inverse matrix.
+  # Provide the cached inverse matrix if available.
+  if (!is.null(inversedMatrix)) {
+     return (inversedMatrix)
+  }
+  # Otherwise, attempt to solve for the inverse. 
+  # If the matrix is square, we can probably get the inverse matrix.
   if (nrow(cachedMatrix) == ncol(cachedMatrix)){
      inversedMatrix <<- solve(cachedMatrix)
   }
   else {
-     message('Matrix has an unequal number of rows and columns and not may be inverted.')    
+     message('Matrix has an unequal number of rows and columns and not may be inverted.')
+     inversedMatrix <<- NULL
   }
 }
